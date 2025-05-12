@@ -1,0 +1,48 @@
+/**
+ * Admin scripts for Safe Ship Pro.
+ *
+ * @since      1.0.0
+ */
+
+(function( $ ) {
+    'use strict';
+
+    $(document).ready(function() {
+        // Toggle protection fee min/max fields based on protection type
+        function toggleFeeFields() {
+            var protectionType = $('select[name="safe_ship_pro_protection_type"]').val();
+            
+            if (protectionType === 'percentage') {
+                $('.percentage-option').show();
+            } else {
+                $('.percentage-option').hide();
+            }
+        }
+        
+        $('select[name="safe_ship_pro_protection_type"]').on('change', function() {
+            toggleFeeFields();
+        });
+        
+        // Call on page load
+        toggleFeeFields();
+        
+        // Handle claim type management in settings
+        $('.add-claim-type').on('click', function() {
+            var template = $('#claim-type-template').html();
+            var typeCounter = $('.claim-type-row').length;
+            var newRow = template.replace(/{key}/g, 'new_' + typeCounter);
+            $('#claim-types-container').append(newRow);
+        });
+        
+        $(document).on('click', '.remove-claim-type', function() {
+            $(this).closest('.claim-type-row').remove();
+        });
+        
+        // Meta box order protection info
+        $('#safe_ship_pro_order_meta_box .safe-ship-pro-claims-list a').on('click', function(e) {
+            e.preventDefault();
+            window.open($(this).attr('href'), '_blank');
+        });
+    });
+
+})( jQuery );

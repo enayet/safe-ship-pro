@@ -1,0 +1,261 @@
+/**
+ * Public styles for Safe Ship Pro.
+ *
+ * @since      1.0.0
+ */
+
+/* Checkout option */
+.safe-ship-pro-checkout-option {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+}
+
+.safe-ship-pro-checkout-option h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+.safe-ship-pro-option-wrapper {
+    padding: 0 10px;
+}
+
+.safe-ship-pro-fee {
+    font-weight: bold;
+}
+
+.safe-ship-pro-policy-info {
+    margin-top: 10px;
+    font-size: 0.85em;
+    color: #666;
+}
+
+/* Product page info */
+.safe-ship-pro-product-info {
+    margin: 20px 0;
+    padding: 10px;
+    background: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+    font-size: 0.9em;
+}
+
+/* Order protection info */
+.safe-ship-pro-order-protection-info {
+    margin: 20px 0;
+    padding: 15px;
+    background: #f9f9f9;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+}
+
+.safe-ship-pro-order-protection-info h3 {
+    margin-top: 0;
+    margin-bottom: 10px;
+}
+
+/* Claims page */
+.safe-ship-pro-claims-page h2 {
+    margin-bottom: 20px;
+}
+
+.safe-ship-pro-claims-table {
+    margin-bottom: 30px;
+}
+
+.claim-status-badge {
+    display: inline-block;
+    padding: 3px 8px;
+    border-radius: 3px;
+    font-size: 12px;
+    font-weight: bold;
+}
+
+.status-pending {
+    background: #f8dda7;
+    color: #94660c;
+}
+
+.status-processing {
+    background: #c6e1c6;
+    color: #5b841b;
+}
+
+.status-approved {
+    background: #c8d7e1;
+    color: #2e4453;
+}
+
+.status-denied {
+    background: #eba3a3;
+    color: #761919;
+}
+
+.status-completed {
+    background: #c6e1c6;
+    color: #5b841b;
+}
+
+.safe-ship-pro-new-claim-section {
+    margin-top: 30px;
+    padding: 20px;
+    background: #f8f8f8;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+}
+
+.safe-ship-pro-select-order-form {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.safe-ship-pro-select-order-form select {
+    flex: 1;
+}
+
+/* New claim form */
+.safe-ship-pro-new-claim {
+    margin-top: 20px;
+}
+
+.safe-ship-pro-claim-form {
+    margin-top: 20px;
+    padding: 20px;
+    background: #f8f8f8;
+    border: 1px solid #e5e5e5;
+    border-radius: 3px;
+}
+
+.safe-ship-pro-form-row {
+    margin-bottom: 20px;
+}
+
+.safe-ship-pro-form-row:last-child {
+    margin-bottom: 0;
+}
+
+.safe-ship-pro-form-row label {
+    display: block;
+    margin-bottom: 5px;
+    font-weight: bold;
+}
+
+.safe-ship-pro-form-field input[type="text"],
+.safe-ship-pro-form-field input[type="email"],
+.safe-ship-pro-form-field select,
+.safe-ship-pro-form-field textarea {
+    width: 100%;
+}
+
+.safe-ship-pro-form-field .description {
+    font-size: 12px;
+    color: #666;
+    margin-top: 5px;
+}
+
+.safe-ship-pro-form-submit {
+    display: flex;
+    align-items: center;
+}
+
+.safe-ship-pro-form-submit .button.cancel {
+    margin-left: 10px;
+}
+
+.safe-ship-pro-form-submit .spinner {
+    background: url(../images/spinner.gif) no-repeat;
+    background-size: 20px 20px;
+    display: inline-block;
+    visibility: hidden;
+    vertical-align: middle;
+    opacity: 0.7;
+    width: 20px;
+    height: 20px;
+    margin: 0 10px;
+}
+
+.safe-ship-pro-form-submit .spinner.active {
+    visibility: visible;
+}
+
+#claim-submission-result {
+    margin-top: 15px;
+}
+
+/* Modal styles */
+.safe-ship-pro-modal {
+    display: none;
+    position: fixed;
+    z-index: 999;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: auto;
+    background-color: rgba(0, 0, 0, 0.4);
+}
+
+.safe-ship-pro-modal-content {
+    background-color: #fefefe;
+    margin: 10% auto;
+    padding: 20px;
+    border: 1px solid #888;
+    width: 80%;
+    max-width: 600px;
+    position: relative;
+    border-radius: 3px;
+}
+
+.safe-ship-pro-modal-close {
+    color: #aaa;
+    position: absolute;
+    top: 10px;
+    right: 20px;
+    font-size: 28px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+.safe-ship-pro-modal-close:hover,
+.safe-ship-pro-modal-close:focus {
+    color: black;
+    text-decoration: none;
+}
+
+.safe-ship-pro-claim-detail-row {
+    margin-bottom: 15px;
+}
+
+.safe-ship-pro-claim-detail-row h4 {
+    margin: 0 0 5px 0;
+}
+
+/* Responsive adjustments */
+@media only screen and (max-width: 768px) {
+    .safe-ship-pro-select-order-form {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 15px;
+    }
+    
+    .safe-ship-pro-form-submit {
+        flex-direction: column;
+        align-items: stretch;
+    }
+    
+    .safe-ship-pro-form-submit .button {
+        width: 100%;
+    }
+    
+    .safe-ship-pro-form-submit .button.cancel {
+        margin-left: 0;
+        margin-top: 10px;
+    }
+    
+    .safe-ship-pro-form-submit .spinner {
+        margin: 10px auto;
+    }
+}
