@@ -88,10 +88,8 @@ class Safe_Ship_Pro_Admin {
      *
      * @since    1.0.0
      */
+
     public function add_admin_menu() {
-        
-    
-        
         add_menu_page(
             __( 'Safe Ship Pro', 'safe-ship-pro' ),
             __( 'Safe Ship Pro', 'safe-ship-pro' ),
@@ -120,7 +118,15 @@ class Safe_Ship_Pro_Admin {
             array( $this, 'display_orders_page' )
         );
 
-        // Claims menu already handled elsewhere and should remain
+        // Claims menu moved under Orders instead of being directly under Safe Ship Pro
+        add_submenu_page(
+            'safe-ship-pro',
+            __( 'Claims', 'safe-ship-pro' ), // Title changed from "Shipping Claims" to "Claims"
+            __( 'Claims', 'safe-ship-pro' ), // Menu label changed from "Shipping Claims" to "Claims"
+            'manage_woocommerce',
+            'safe-ship-pro-claims',
+            array( $this, 'display_claims_admin_page' )
+        );
 
         add_submenu_page(
             'safe-ship-pro',
@@ -139,15 +145,15 @@ class Safe_Ship_Pro_Admin {
             'safe-ship-pro-license',
             array( $this, 'display_license_page' )
         );
-        
+
         // Add product settings to WooCommerce product data tabs
         add_filter( 'woocommerce_product_data_tabs', array( $this, 'add_product_data_tab' ) );
         add_action( 'woocommerce_product_data_panels', array( $this, 'add_product_data_fields' ) );
         add_action( 'woocommerce_process_product_meta', array( $this, 'save_product_data_fields' ) );
-        
+
         // Add meta box to order page
         add_action( 'add_meta_boxes', array( $this, 'add_order_meta_box' ) );
-        
+
         // Add dashboard widget
         add_action( 'wp_dashboard_setup', array( $this, 'add_dashboard_widget' ) );
     }

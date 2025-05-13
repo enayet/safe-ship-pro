@@ -142,7 +142,7 @@ class Safe_Ship_Pro {
         $this->loader->add_action( 'admin_init', $plugin_admin, 'register_settings' );
         
         // Claims management
-        $this->loader->add_action( 'admin_menu', $claims, 'add_claims_menu' );
+        //$this->loader->add_action( 'admin_menu', $claims, 'add_claims_menu' );
         $this->loader->add_action( 'wp_ajax_safe_ship_pro_update_claim', $claims, 'ajax_update_claim' );
         
         // Analytics
