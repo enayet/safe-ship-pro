@@ -297,22 +297,7 @@ class Safe_Ship_Pro_Claims {
             'claim_id' => $claim_id
         ) );
     }
-    
-    /**
-     * Add claims management admin menu.
-     *
-     * @since    1.0.0
-     */
-    public function add_claims_menu() {
-        add_submenu_page(
-            'safe-ship-pro',
-            __( 'Shipping Claims', 'safe-ship-pro' ),
-            __( 'Shipping Claims', 'safe-ship-pro' ),
-            'manage_woocommerce',
-            'safe-ship-pro-claims',
-            array( $this, 'display_claims_admin_page' )
-        );
-    }
+
     
     /**
      * Display claims management admin page.

@@ -36,6 +36,8 @@ class Safe_Ship_Pro_Admin {
         $this->version = $version;
         
         $this->analytics = new Safe_Ship_Pro_Analytics( $this->plugin_name, $this->version );
+        $this->claims = new Safe_Ship_Pro_Claims( $this->plugin_name, $this->version );
+        
     }
 
     /**
@@ -54,7 +56,7 @@ class Safe_Ship_Pro_Admin {
      */
     public function enqueue_scripts() {
         wp_enqueue_script( $this->plugin_name, SAFE_SHIP_PRO_PLUGIN_URL . 'admin/js/safe-ship-pro-admin.js', array( 'jquery' ), $this->version, false );
-        
+
         // Add claims management script only on claims page
         if ( isset( $_GET['page'] ) && $_GET['page'] === 'safe-ship-pro-claims' ) {
             wp_enqueue_script( $this->plugin_name . '-claims', SAFE_SHIP_PRO_PLUGIN_URL . 'admin/js/safe-ship-pro-claims.js', array( 'jquery' ), $this->version, false );
@@ -68,19 +70,23 @@ class Safe_Ship_Pro_Admin {
                 ),
             ) );
         }
-        
+
         // Add analytics scripts only on analytics page
         if ( isset( $_GET['page'] ) && $_GET['page'] === 'safe-ship-pro' ) {
             wp_enqueue_script( 'chart-js', 'https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js', array(), '3.7.1', true );
             wp_enqueue_script( $this->plugin_name . '-analytics', SAFE_SHIP_PRO_PLUGIN_URL . 'admin/js/safe-ship-pro-analytics.js', array( 'jquery', 'chart-js' ), $this->version, false );
         }
-        
-        
-        // Add this inside the enqueue_scripts method
-        if ( isset( $_GET['page'] ) && $_GET['page'] === 'safe-ship-pro-settings' ) {
-            wp_enqueue_media();
-        }        
-        
+
+        // Enqueue media uploader on the settings page
+        if ( isset( $_GET['page'] ) && ($_GET['page'] === 'safe-ship-pro-settings' || strpos($_GET['page'], 'safe-ship-pro') !== false) ) {
+            wp_enqueue_media(); // This ensures the WordPress media uploader is available
+
+            // Add custom settings script data
+            wp_localize_script( $this->plugin_name, 'safe_ship_pro_admin', array(
+                'media_title' => __( 'Select or Upload Logo', 'safe-ship-pro' ),
+                'media_button' => __( 'Use this logo', 'safe-ship-pro' ),
+            ));
+        }
     }
 
     /**
@@ -125,7 +131,7 @@ class Safe_Ship_Pro_Admin {
             __( 'Claims', 'safe-ship-pro' ), // Menu label changed from "Shipping Claims" to "Claims"
             'manage_woocommerce',
             'safe-ship-pro-claims',
-            array( $this, 'display_claims_admin_page' )
+            array( $this->claims, 'display_claims_admin_page' )
         );
 
         add_submenu_page(
@@ -741,8 +747,15 @@ class Safe_Ship_Pro_Admin {
         include_once SAFE_SHIP_PRO_PLUGIN_DIR . 'admin/partials/safe-ship-pro-orders-display.php';
     }
 
+    /**
+     * Display the license page.
+     *
+     * @since    1.0.0
+     */
     public function display_license_page() {
-        echo '<div class="wrap"><h1>License (Coming Soon)</h1></div>';
+        // Include the license page template
+        $license = new Safe_Ship_Pro_License($this->plugin_name, $this->version);
+        $license->display_license_page();
     }
 
 }

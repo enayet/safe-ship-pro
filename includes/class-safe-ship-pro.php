@@ -54,6 +54,7 @@ class Safe_Ship_Pro {
         $this->set_locale();
         $this->define_admin_hooks();
         $this->define_public_hooks();
+        $this->define_license_hooks(); // Added license hooks
     }
 
     /**
@@ -93,6 +94,7 @@ class Safe_Ship_Pro {
         require_once SAFE_SHIP_PRO_PLUGIN_DIR . 'includes/class-safe-ship-pro-claims.php';
         require_once SAFE_SHIP_PRO_PLUGIN_DIR . 'includes/class-safe-ship-pro-emails.php';
         require_once SAFE_SHIP_PRO_PLUGIN_DIR . 'includes/class-safe-ship-pro-analytics.php';
+        require_once SAFE_SHIP_PRO_PLUGIN_DIR . 'includes/class-safe-ship-pro-license.php'; // Added license class
 
         /**
          * The class responsible for defining all actions that occur in the admin area.
@@ -193,6 +195,59 @@ class Safe_Ship_Pro {
         $this->loader->add_action( 'safe_ship_pro_claim_submitted', $emails, 'send_claim_notifications', 10, 2 );
         $this->loader->add_action( 'safe_ship_pro_claim_updated', $emails, 'send_claim_status_notification', 10, 3 );
     }
+    
+    
+    
+    /**
+     * Register all of the hooks related to licensing functionality
+     * of the plugin.
+     *
+     * @since    1.0.0
+     * @access   private
+     */
+    private function define_license_hooks() {
+        $license = new Safe_Ship_Pro_License($this->get_plugin_name(), $this->get_version());
+        
+        // Add license checks
+        $this->loader->add_action('admin_init', $license, 'register_license_settings');
+        $this->loader->add_action('admin_notices', $license, 'license_admin_notices');
+        $this->loader->add_action('safe_ship_pro_license_check', $license, 'check_license');
+        
+        // Add plugin update functionality
+        $this->loader->add_action('admin_init', $this, 'register_plugin_updater', 0);
+    }   
+    
+    
+    /**
+     * Register the plugin updater.
+     *
+     * @since    1.0.0
+     */
+    public function register_plugin_updater() {
+        // Use EDD SL Plugin Updater class
+        if (!class_exists('EDD_SL_Plugin_Updater')) {
+            require_once SAFE_SHIP_PRO_PLUGIN_DIR . 'includes/class-edd-sl-plugin-updater.php';
+        }
+        
+        // Retrieve license key
+        $license_key = trim(get_option('safe_ship_pro_license_key'));
+        
+        // Setup the updater
+        $edd_updater = new EDD_SL_Plugin_Updater(
+            'https://safeshippro.com/',
+            SAFE_SHIP_PRO_PLUGIN_DIR . 'safe-ship-pro.php',
+            array(
+                'version'   => SAFE_SHIP_PRO_VERSION,
+                'license'   => $license_key,
+                'item_name' => 'Safe Ship Pro',
+                'author'    => 'SafeShipPro', // Replace with your name
+                'url'       => home_url(),
+                'beta'      => false
+            )
+        );
+    }    
+    
+    
 
     /**
      * Run the loader to execute all of the hooks with WordPress.

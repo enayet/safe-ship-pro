@@ -56,6 +56,11 @@ function activate_safe_ship_pro() {
 function deactivate_safe_ship_pro() {
     require_once SAFE_SHIP_PRO_PLUGIN_DIR . 'includes/class-safe-ship-pro-deactivator.php';
     Safe_Ship_Pro_Deactivator::deactivate();
+    
+    // Also deactivate the license
+    require_once SAFE_SHIP_PRO_PLUGIN_DIR . 'includes/class-safe-ship-pro-license.php';
+    Safe_Ship_Pro_License::deactivate();    
+    
 }
 
 register_activation_hook( __FILE__, 'activate_safe_ship_pro' );
