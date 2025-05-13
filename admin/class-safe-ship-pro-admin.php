@@ -34,6 +34,8 @@ class Safe_Ship_Pro_Admin {
     public function __construct( $plugin_name, $version ) {
         $this->plugin_name = $plugin_name;
         $this->version = $version;
+        
+        $this->analytics = new Safe_Ship_Pro_Analytics( $this->plugin_name, $this->version );
     }
 
     /**
@@ -68,10 +70,17 @@ class Safe_Ship_Pro_Admin {
         }
         
         // Add analytics scripts only on analytics page
-        if ( isset( $_GET['page'] ) && $_GET['page'] === 'safe-ship-pro-analytics' ) {
+        if ( isset( $_GET['page'] ) && $_GET['page'] === 'safe-ship-pro' ) {
             wp_enqueue_script( 'chart-js', 'https://cdn.jsdelivr.net/npm/chart.js@3.7.1/dist/chart.min.js', array(), '3.7.1', true );
             wp_enqueue_script( $this->plugin_name . '-analytics', SAFE_SHIP_PRO_PLUGIN_URL . 'admin/js/safe-ship-pro-analytics.js', array( 'jquery', 'chart-js' ), $this->version, false );
         }
+        
+        
+        // Add this inside the enqueue_scripts method
+        if ( isset( $_GET['page'] ) && $_GET['page'] === 'safe-ship-pro-settings' ) {
+            wp_enqueue_media();
+        }        
+        
     }
 
     /**
@@ -80,23 +89,55 @@ class Safe_Ship_Pro_Admin {
      * @since    1.0.0
      */
     public function add_admin_menu() {
+        
+    
+        
         add_menu_page(
             __( 'Safe Ship Pro', 'safe-ship-pro' ),
             __( 'Safe Ship Pro', 'safe-ship-pro' ),
             'manage_woocommerce',
             'safe-ship-pro',
-            array( $this, 'display_settings_page' ),
-            'dashicons-shield',
+            array( $this->analytics, 'display_analytics_page' ),
+            'dashicons-dashboard',
             56
         );
-        
+
+        add_submenu_page(
+            'safe-ship-pro',
+            __( 'Dashboard', 'safe-ship-pro' ),
+            __( 'Dashboard', 'safe-ship-pro' ),
+            'manage_woocommerce',
+            'safe-ship-pro',
+            array( $this->analytics, 'display_analytics_page' )
+        );
+
+        add_submenu_page(
+            'safe-ship-pro',
+            __( 'Orders', 'safe-ship-pro' ),
+            __( 'Orders', 'safe-ship-pro' ),
+            'manage_woocommerce',
+            'safe-ship-pro-orders',
+            array( $this, 'display_orders_page' )
+        );
+
+        // Claims menu already handled elsewhere and should remain
+
         add_submenu_page(
             'safe-ship-pro',
             __( 'Settings', 'safe-ship-pro' ),
             __( 'Settings', 'safe-ship-pro' ),
             'manage_woocommerce',
-            'safe-ship-pro',
+            'safe-ship-pro-settings',
             array( $this, 'display_settings_page' )
+        );
+
+        add_submenu_page(
+            'safe-ship-pro',
+            __( 'License', 'safe-ship-pro' ),
+            __( 'License', 'safe-ship-pro' ),
+            'manage_woocommerce',
+            'safe-ship-pro-license',
+            array( $this, 'display_license_page' )
         );
         
         // Add product settings to WooCommerce product data tabs
@@ -146,6 +187,11 @@ class Safe_Ship_Pro_Admin {
         register_setting( 'safe_ship_pro_claims', 'safe_ship_pro_claims_email_notifications' );
         register_setting( 'safe_ship_pro_claims', 'safe_ship_pro_claims_auto_approve' );
         register_setting( 'safe_ship_pro_claims', 'safe_ship_pro_claims_types' );
+        
+        
+        register_setting( 'safe_ship_pro_general', 'safe_ship_pro_protection_logo' );
+        register_setting( 'safe_ship_pro_general', 'safe_ship_pro_provider_name' );
+        register_setting( 'safe_ship_pro_general', 'safe_ship_pro_provider_link' );        
     }
 
     /**
@@ -448,6 +494,49 @@ class Safe_Ship_Pro_Admin {
                     </label>
                 </td>
             </tr>
+            
+            
+            
+            <tr valign="top">
+                <th scope="row"><?php esc_html_e( 'Protection Logo', 'safe-ship-pro' ); ?></th>
+                <td>
+                    <input type="text" name="safe_ship_pro_protection_logo" id="safe_ship_pro_logo_url" value="<?php echo esc_attr( get_option( 'safe_ship_pro_protection_logo', '' ) ); ?>" class="regular-text" />
+                    <button type="button" class="button safe-ship-pro-upload-logo"><?php esc_html_e( 'Upload Logo', 'safe-ship-pro' ); ?></button>
+                    <p class="description">
+                        <?php esc_html_e( 'Upload or enter the URL of the logo to display with the protection option.', 'safe-ship-pro' ); ?>
+                    </p>
+                    <div id="safe-ship-pro-logo-preview" style="margin-top: 10px; max-width: 100px;">
+                        <?php 
+                        $logo_url = get_option( 'safe_ship_pro_protection_logo', '' );
+                        if ( !empty($logo_url) ) {
+                            echo '<img src="' . esc_url($logo_url) . '" style="max-width: 100%;" />';
+                        }
+                        ?>
+                    </div>
+                </td>
+            </tr>
+
+            <tr valign="top">
+                <th scope="row"><?php esc_html_e( 'Provider Name', 'safe-ship-pro' ); ?></th>
+                <td>
+                    <input type="text" name="safe_ship_pro_provider_name" value="<?php echo esc_attr( get_option( 'safe_ship_pro_provider_name', '' ) ); ?>" class="regular-text" />
+                    <p class="description">
+                        <?php esc_html_e( 'Optional. The name of the protection provider (e.g., "Navidium").', 'safe-ship-pro' ); ?>
+                    </p>
+                </td>
+            </tr>
+
+            <tr valign="top">
+                <th scope="row"><?php esc_html_e( 'Provider Link', 'safe-ship-pro' ); ?></th>
+                <td>
+                    <input type="url" name="safe_ship_pro_provider_link" value="<?php echo esc_attr( get_option( 'safe_ship_pro_provider_link', '' ) ); ?>" class="regular-text" />
+                    <p class="description">
+                        <?php esc_html_e( 'Optional. Link to the protection provider\'s website.', 'safe-ship-pro' ); ?>
+                    </p>
+                </td>
+            </tr>            
+            
+            
         </table>
         
         <script type="text/javascript">
@@ -641,4 +730,13 @@ class Safe_Ship_Pro_Admin {
         </table>
         <?php
     }
+
+    public function display_orders_page() {
+        include_once SAFE_SHIP_PRO_PLUGIN_DIR . 'admin/partials/safe-ship-pro-orders-display.php';
+    }
+
+    public function display_license_page() {
+        echo '<div class="wrap"><h1>License (Coming Soon)</h1></div>';
+    }
+
 }

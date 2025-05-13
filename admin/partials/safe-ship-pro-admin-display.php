@@ -10,9 +10,9 @@
     <h1><?php echo esc_html( get_admin_page_title() ); ?></h1>
     
     <h2 class="nav-tab-wrapper">
-        <a href="?page=safe-ship-pro&tab=general" class="nav-tab <?php echo ( ! isset( $_GET['tab'] ) || $_GET['tab'] == 'general' ) ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'General Settings', 'safe-ship-pro' ); ?></a>
-        <a href="?page=safe-ship-pro&tab=display" class="nav-tab <?php echo ( isset( $_GET['tab'] ) && $_GET['tab'] == 'display' ) ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Display Options', 'safe-ship-pro' ); ?></a>
-        <a href="?page=safe-ship-pro&tab=claims" class="nav-tab <?php echo ( isset( $_GET['tab'] ) && $_GET['tab'] == 'claims' ) ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Claims Settings', 'safe-ship-pro' ); ?></a>
+        <a href="?page=safe-ship-pro-settings&tab=general" class="nav-tab <?php echo ( ! isset( $_GET['tab'] ) || $_GET['tab'] == 'general' ) ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'General Settings', 'safe-ship-pro' ); ?></a>
+        <a href="?page=safe-ship-pro-settings&tab=display" class="nav-tab <?php echo ( isset( $_GET['tab'] ) && $_GET['tab'] == 'display' ) ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Display Options', 'safe-ship-pro' ); ?></a>
+        <a href="?page=safe-ship-pro-settings&tab=claims" class="nav-tab <?php echo ( isset( $_GET['tab'] ) && $_GET['tab'] == 'claims' ) ? 'nav-tab-active' : ''; ?>"><?php esc_html_e( 'Claims Settings', 'safe-ship-pro' ); ?></a>
     </h2>
     
     <form method="post" action="options.php">

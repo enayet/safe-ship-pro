@@ -43,6 +43,42 @@
             e.preventDefault();
             window.open($(this).attr('href'), '_blank');
         });
+        
+        
+        
+        
+        
+        // Logo upload handler
+        $('.safe-ship-pro-upload-logo').on('click', function(e) {
+            e.preventDefault();
+
+            var button = $(this);
+            var logoUrlField = $('#safe_ship_pro_logo_url');
+            var logoPreview = $('#safe-ship-pro-logo-preview');
+
+            // Create a media frame
+            var mediaFrame = wp.media({
+                title: 'Select or Upload Logo',
+                button: {
+                    text: 'Use this logo'
+                },
+                multiple: false
+            });
+
+            // When an image is selected, run a callback
+            mediaFrame.on('select', function() {
+                var attachment = mediaFrame.state().get('selection').first().toJSON();
+                logoUrlField.val(attachment.url);
+
+                // Update preview
+                logoPreview.html('<img src="' + attachment.url + '" style="max-width: 100%;" />');
+            });
+
+            // Open the media library frame
+            mediaFrame.open();
+        });        
+        
+        
     });
 
 })( jQuery );

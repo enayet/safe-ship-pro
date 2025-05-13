@@ -259,3 +259,120 @@
         margin: 10px auto;
     }
 }
+
+
+/* Enhanced Checkout option */
+.safe-ship-pro-checkout-option {
+    margin: 20px 0;
+    padding: 15px;
+    background: #FFEAB2;
+    border-radius: 8px;
+    border: none;
+}
+
+.safe-ship-pro-checkout-header {
+    display: flex;
+    align-items: center;
+}
+
+.safe-ship-pro-logo {
+    flex: 0 0 auto;
+    margin-right: 15px;
+}
+
+.safe-ship-pro-logo img {
+    width: 60px;
+    height: 60px;
+    border-radius: 50%;
+    object-fit: cover;
+}
+
+.safe-ship-pro-checkout-title {
+    flex: 1;
+}
+
+.safe-ship-pro-checkout-title h3 {
+    margin-top: 0;
+    margin-bottom: 5px;
+    font-size: 18px;
+    color: #333;
+}
+
+.safe-ship-pro-checkout-description {
+    margin: 0 0 5px;
+    font-size: 14px;
+    color: #666;
+}
+
+.safe-ship-pro-powered-by {
+    margin: 0;
+    font-size: 12px;
+    color: #888;
+}
+
+.safe-ship-pro-checkout-price {
+    flex: 0 0 auto;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-end;
+}
+
+.safe-ship-pro-fee {
+    font-weight: bold;
+    font-size: 18px;
+    margin-bottom: 5px;
+}
+
+/* Toggle Switch */
+.safe-ship-pro-toggle {
+    position: relative;
+    display: inline-block;
+    width: 50px;
+    height: 24px;
+}
+
+.safe-ship-pro-toggle input {
+    opacity: 0;
+    width: 0;
+    height: 0;
+}
+
+.safe-ship-pro-toggle-slider {
+    position: absolute;
+    cursor: pointer;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background-color: #ccc;
+    transition: .4s;
+    border-radius: 34px;
+}
+
+.safe-ship-pro-toggle-slider:before {
+    position: absolute;
+    content: "";
+    height: 18px;
+    width: 18px;
+    left: 3px;
+    bottom: 3px;
+    background-color: white;
+    transition: .4s;
+    border-radius: 50%;
+}
+
+input:checked + .safe-ship-pro-toggle-slider {
+    background-color: #FF6B6B;
+}
+
+input:checked + .safe-ship-pro-toggle-slider:before {
+    transform: translateX(26px);
+}
+
+.safe-ship-pro-policy-info {
+    margin-top: 10px;
+    padding-top: 10px;
+    border-top: 1px solid rgba(0,0,0,0.1);
+    font-size: 12px;
+    color: #666;
+}

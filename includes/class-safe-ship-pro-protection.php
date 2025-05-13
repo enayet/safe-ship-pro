@@ -112,7 +112,7 @@ class Safe_Ship_Pro_Protection {
         if ( ! $this->is_protection_enabled() ) {
             return;
         }
-        
+
         // Check if all cart items are eligible
         $all_eligible = true;
         foreach ( WC()->cart->get_cart() as $cart_item ) {
@@ -121,40 +121,67 @@ class Safe_Ship_Pro_Protection {
                 break;
             }
         }
-        
+
         if ( ! $all_eligible ) {
             return;
         }
-        
+
         $cart_total = WC()->cart->get_subtotal();
         $protection_fee = $this->calculate_protection_fee( $cart_total );
         $protection_label = get_option( 'safe_ship_pro_protection_label', __( 'Shipping Protection', 'safe-ship-pro' ) );
         $protection_description = get_option( 'safe_ship_pro_protection_description', __( 'Protect your package against loss, damage, or theft during shipping.', 'safe-ship-pro' ) );
         $protection_policy = get_option( 'safe_ship_pro_protection_policy', '' );
-        
+
+        // Get logo and provider info
+        $logo_url = get_option( 'safe_ship_pro_protection_logo', '' );
+        $provider_name = get_option( 'safe_ship_pro_provider_name', '' );
+        $provider_link = get_option( 'safe_ship_pro_provider_link', '' );
+
         // Get default checked state (can be controlled by admin)
         $default_checked = get_option( 'safe_ship_pro_default_checked', 'no' ) === 'yes';
-        
+
         // Check if user already selected protection (for when checkout refreshes)
         $checked = isset( WC()->session ) && WC()->session->get( 'safe_ship_pro_protection_added' ) ? true : $default_checked;
-        
+
         ?>
         <div class="safe-ship-pro-checkout-option">
-            <h3><?php echo esc_html( $protection_label ); ?></h3>
-            <div class="safe-ship-pro-option-wrapper">
-                <p>
-                    <label>
-                        <input type="checkbox" name="safe_ship_pro_protection" id="safe_ship_pro_protection" <?php checked( $checked, true ); ?> />
-                        <?php echo esc_html( $protection_description ); ?> 
-                        <span class="safe-ship-pro-fee">(<?php echo wc_price( $protection_fee ); ?>)</span>
-                    </label>
-                </p>
-                <?php if ( ! empty( $protection_policy ) ) : ?>
-                <p class="safe-ship-pro-policy-info">
-                    <small><?php echo wp_kses_post( $protection_policy ); ?></small>
-                </p>
+            <div class="safe-ship-pro-checkout-header">
+                <?php if ( ! empty( $logo_url ) ) : ?>
+                    <div class="safe-ship-pro-logo">
+                        <img src="<?php echo esc_url( $logo_url ); ?>" alt="<?php echo esc_attr( $protection_label ); ?>" />
+                    </div>
                 <?php endif; ?>
+
+                <div class="safe-ship-pro-checkout-title">
+                    <h3><?php echo esc_html( $protection_label ); ?></h3>
+                    <p class="safe-ship-pro-checkout-description"><?php echo esc_html( $protection_description ); ?></p>
+
+                    <?php if ( ! empty( $provider_name ) ) : ?>
+                    <p class="safe-ship-pro-powered-by">
+                        <?php esc_html_e( 'Powered by', 'safe-ship-pro' ); ?> 
+                        <?php if ( ! empty( $provider_link ) ) : ?>
+                            <a href="<?php echo esc_url( $provider_link ); ?>" target="_blank" rel="noopener noreferrer"><?php echo esc_html( $provider_name ); ?></a>
+                        <?php else : ?>
+                            <?php echo esc_html( $provider_name ); ?>
+                        <?php endif; ?>
+                    </p>
+                    <?php endif; ?>
+                </div>
+
+                <div class="safe-ship-pro-checkout-price">
+                    <span class="safe-ship-pro-fee"><?php echo wc_price( $protection_fee ); ?></span>
+                    <label class="safe-ship-pro-toggle">
+                        <input type="checkbox" name="safe_ship_pro_protection" id="safe_ship_pro_protection" <?php checked( $checked, true ); ?> />
+                        <span class="safe-ship-pro-toggle-slider"></span>
+                    </label>
+                </div>
             </div>
+
+            <?php if ( ! empty( $protection_policy ) ) : ?>
+            <div class="safe-ship-pro-policy-info">
+                <small><?php echo wp_kses_post( $protection_policy ); ?></small>
+            </div>
+            <?php endif; ?>
         </div>
         <script type="text/javascript">
             jQuery(document).ready(function($) {

@@ -42,14 +42,7 @@ class Safe_Ship_Pro_Analytics {
      * @since    1.0.0
      */
     public function add_analytics_menu() {
-        add_submenu_page(
-            'safe-ship-pro',
-            __( 'Analytics', 'safe-ship-pro' ),
-            __( 'Analytics', 'safe-ship-pro' ),
-            'manage_woocommerce',
-            'safe-ship-pro-analytics',
-            array( $this, 'display_analytics_page' )
-        );
+        
     }
     
     /**
