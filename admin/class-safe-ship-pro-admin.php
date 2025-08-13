@@ -102,7 +102,7 @@ class Safe_Ship_Pro_Admin {
             'manage_woocommerce',
             'safe-ship-pro',
             array( $this->analytics, 'display_analytics_page' ),
-            'dashicons-dashboard',
+            'dashicons-shield',
             56
         );
 
@@ -143,14 +143,14 @@ class Safe_Ship_Pro_Admin {
             array( $this, 'display_settings_page' )
         );
 
-        add_submenu_page(
-            'safe-ship-pro',
-            __( 'License', 'safe-ship-pro' ),
-            __( 'License', 'safe-ship-pro' ),
-            'manage_woocommerce',
-            'safe-ship-pro-license',
-            array( $this, 'display_license_page' )
-        );
+//        add_submenu_page(
+//            'safe-ship-pro',
+//            __( 'License', 'safe-ship-pro' ),
+//            __( 'License', 'safe-ship-pro' ),
+//            'manage_woocommerce',
+//            'safe-ship-pro-license',
+//            array( $this, 'display_license_page' )
+//        );
 
         // Add product settings to WooCommerce product data tabs
         add_filter( 'woocommerce_product_data_tabs', array( $this, 'add_product_data_tab' ) );
@@ -533,7 +533,7 @@ class Safe_Ship_Pro_Admin {
                 <td>
                     <input type="text" name="safe_ship_pro_provider_name" value="<?php echo esc_attr( get_option( 'safe_ship_pro_provider_name', '' ) ); ?>" class="regular-text" />
                     <p class="description">
-                        <?php esc_html_e( 'Optional. The name of the protection provider (e.g., "Navidium").', 'safe-ship-pro' ); ?>
+                        <?php esc_html_e( 'Optional. The name of the protection provider (e.g., "SafeShipPro").', 'safe-ship-pro' ); ?>
                     </p>
                 </td>
             </tr>

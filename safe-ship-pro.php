@@ -1,21 +1,20 @@
 <?php
 /**
  * Plugin Name: Safe Ship Pro
- * Plugin URI: https://example.com/safe-ship-pro
- * Description: Add shipping protection options to your WooCommerce store.
+ * Plugin URI: https://safeshippro.com/
+ * Description: Complete WooCommerce shipping protection solution with claims management, analytics, and automated notifications for lost, damaged, or stolen packages.
  * Version: 1.0.0
- * Author: Your Name
- * Author URI: https://example.com
+ * Author: WP Code Connect
+ * Author URI: https://wpcodeconnect.com/
  * License: GPL-2.0+
  * License URI: http://www.gnu.org/licenses/gpl-2.0.txt
  * Text Domain: safe-ship-pro
  * Domain Path: /languages
- * WC requires at least: 3.0.0
- * WC tested up to: 8.0.0
- * 
- * Woo: 12345:342928dfsfhsf8429842374wdf4234sfd
- * WC requires at least: 3.0.0
- * WC tested up to: 8.0.0
+ * Requires at least: 5.0
+ * Tested up to: 6.8
+ * Requires PHP: 7.4
+ * WC requires at least: 8.0.0
+ * WC tested up to: 10.1.0
  */
  
 /**
@@ -58,8 +57,8 @@ function deactivate_safe_ship_pro() {
     Safe_Ship_Pro_Deactivator::deactivate();
     
     // Also deactivate the license
-    require_once SAFE_SHIP_PRO_PLUGIN_DIR . 'includes/class-safe-ship-pro-license.php';
-    Safe_Ship_Pro_License::deactivate();    
+    //require_once SAFE_SHIP_PRO_PLUGIN_DIR . 'includes/class-safe-ship-pro-license.php';
+    //Safe_Ship_Pro_License::deactivate();    
     
 }
 

@@ -1,0 +1,2209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Safe Ship Pro - Complete Documentation</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/themes/prism-tomorrow.min.css" rel="stylesheet">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+    <style>
+        :root {
+            --primary-color: #2563eb;
+            --secondary-color: #64748b;
+            --accent-color: #06b6d4;
+            --success-color: #059669;
+            --warning-color: #d97706;
+            --danger-color: #dc2626;
+            --dark-color: #1e293b;
+            --light-color: #f8fafc;
+            --border-color: #e2e8f0;
+            --text-primary: #1e293b;
+            --text-secondary: #64748b;
+            --sidebar-width: 280px;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            line-height: 1.7;
+            color: var(--text-primary);
+            background: var(--light-color);
+        }
+
+        .container {
+            display: flex;
+            min-height: 100vh;
+        }
+
+        /* Sidebar Navigation */
+        .sidebar {
+            width: var(--sidebar-width);
+            background: white;
+            border-right: 1px solid var(--border-color);
+            position: fixed;
+            height: 100vh;
+            overflow-y: auto;
+            z-index: 1000;
+            box-shadow: 0 0 20px rgba(0,0,0,0.05);
+        }
+
+        .sidebar-header {
+            padding: 2rem 1.5rem 1rem;
+            border-bottom: 1px solid var(--border-color);
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            color: white;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+            gap: 0.75rem;
+            font-size: 1.25rem;
+            font-weight: 700;
+        }
+
+        .logo i {
+            font-size: 1.5rem;
+        }
+
+        .version {
+            font-size: 0.75rem;
+            opacity: 0.8;
+            margin-top: 0.25rem;
+        }
+
+        .nav-menu {
+            padding: 1rem 0;
+        }
+
+        .nav-section {
+            margin-bottom: 1rem;
+        }
+
+        .nav-section-title {
+            padding: 0.5rem 1.5rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+            color: var(--text-secondary);
+        }
+
+        .nav-item {
+            display: block;
+            padding: 0.75rem 1.5rem 0.75rem 2rem;
+            color: var(--text-primary);
+            text-decoration: none;
+            transition: all 0.2s ease;
+            border-left: 3px solid transparent;
+            position: relative;
+        }
+
+        .nav-item:hover {
+            background: var(--light-color);
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+        }
+
+        .nav-item.active {
+            background: linear-gradient(90deg, rgba(37, 99, 235, 0.1), transparent);
+            color: var(--primary-color);
+            border-left-color: var(--primary-color);
+            font-weight: 600;
+        }
+
+        .nav-item i {
+            width: 1.25rem;
+            margin-right: 0.75rem;
+        }
+
+        /* Main Content */
+        .main-content {
+            flex: 1;
+            margin-left: var(--sidebar-width);
+            background: white;
+        }
+
+        .content-header {
+            background: white;
+            border-bottom: 1px solid var(--border-color);
+            padding: 1.5rem 2rem;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+        }
+
+        .breadcrumb {
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-size: 0.875rem;
+            color: var(--text-secondary);
+            margin-bottom: 0.5rem;
+        }
+
+        .content-body {
+            padding: 2rem;
+            max-width: 900px;
+        }
+
+        /* Typography */
+        h1 {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--text-primary);
+            margin-bottom: 1rem;
+            line-height: 1.2;
+        }
+
+        h2 {
+            font-size: 1.875rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 2.5rem 0 1rem;
+            padding-bottom: 0.5rem;
+            border-bottom: 2px solid var(--border-color);
+        }
+
+        h3 {
+            font-size: 1.5rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 2rem 0 1rem;
+        }
+
+        h4 {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 1.5rem 0 0.75rem;
+        }
+
+        p {
+            margin-bottom: 1rem;
+            color: var(--text-primary);
+        }
+
+        /* Lists */
+        ul, ol {
+            margin: 1rem 0 1rem 1.5rem;
+        }
+
+        li {
+            margin-bottom: 0.5rem;
+        }
+
+        /* Links */
+        a {
+            color: var(--primary-color);
+            text-decoration: none;
+            transition: color 0.2s ease;
+        }
+
+        a:hover {
+            color: var(--accent-color);
+            text-decoration: underline;
+        }
+
+        /* Code Blocks */
+        pre {
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            overflow-x: auto;
+            box-shadow: 0 4px 6px rgba(0,0,0,0.1);
+        }
+
+        code {
+            font-family: 'Fira Code', 'Monaco', 'Consolas', monospace;
+            font-size: 0.875rem;
+        }
+
+        :not(pre) > code {
+            background: #f1f5f9;
+            padding: 0.2rem 0.4rem;
+            border-radius: 4px;
+            color: var(--danger-color);
+            font-weight: 500;
+        }
+
+        /* Alerts */
+        .alert {
+            padding: 1rem 1.25rem;
+            border-radius: 8px;
+            margin: 1.5rem 0;
+            border-left: 4px solid;
+            background: white;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .alert-info {
+            background: #eff6ff;
+            border-left-color: var(--primary-color);
+            color: #1e40af;
+        }
+
+        .alert-success {
+            background: #ecfdf5;
+            border-left-color: var(--success-color);
+            color: #065f46;
+        }
+
+        .alert-warning {
+            background: #fffbeb;
+            border-left-color: var(--warning-color);
+            color: #92400e;
+        }
+
+        .alert-danger {
+            background: #fef2f2;
+            border-left-color: var(--danger-color);
+            color: #991b1b;
+        }
+
+        .alert-title {
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            display: flex;
+            align-items: center;
+            gap: 0.5rem;
+        }
+
+        /* Cards */
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 1.5rem;
+            margin: 1.5rem 0;
+            border: 1px solid var(--border-color);
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .card-header {
+            border-bottom: 1px solid var(--border-color);
+            padding-bottom: 1rem;
+            margin-bottom: 1rem;
+        }
+
+        .card-title {
+            font-size: 1.25rem;
+            font-weight: 600;
+            color: var(--text-primary);
+            margin: 0;
+        }
+
+        /* Feature Grid */
+        .feature-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 1.5rem;
+            margin: 2rem 0;
+        }
+
+        .feature-card {
+            background: white;
+            padding: 1.5rem;
+            border-radius: 12px;
+            border: 1px solid var(--border-color);
+            transition: all 0.3s ease;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+        }
+
+        .feature-card:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.1);
+            border-color: var(--primary-color);
+        }
+
+        .feature-icon {
+            width: 3rem;
+            height: 3rem;
+            background: linear-gradient(135deg, var(--primary-color), var(--accent-color));
+            border-radius: 12px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.25rem;
+            margin-bottom: 1rem;
+        }
+
+        .feature-title {
+            font-size: 1.125rem;
+            font-weight: 600;
+            margin-bottom: 0.5rem;
+            color: var(--text-primary);
+        }
+
+        .feature-description {
+            color: var(--text-secondary);
+            margin: 0;
+        }
+
+        /* Tables */
+        .table-container {
+            overflow-x: auto;
+            margin: 1.5rem 0;
+            border-radius: 8px;
+            border: 1px solid var(--border-color);
+        }
+
+        table {
+            width: 100%;
+            border-collapse: collapse;
+            background: white;
+        }
+
+        th, td {
+            padding: 0.75rem 1rem;
+            text-align: left;
+            border-bottom: 1px solid var(--border-color);
+        }
+
+        th {
+            background: var(--light-color);
+            font-weight: 600;
+            color: var(--text-primary);
+        }
+
+        tbody tr:hover {
+            background: var(--light-color);
+        }
+
+        /* Badges */
+        .badge {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.25rem;
+            padding: 0.25rem 0.75rem;
+            font-size: 0.75rem;
+            font-weight: 600;
+            border-radius: 9999px;
+            text-transform: uppercase;
+            letter-spacing: 0.05em;
+        }
+
+        .badge-primary {
+            background: rgba(37, 99, 235, 0.1);
+            color: var(--primary-color);
+        }
+
+        .badge-success {
+            background: rgba(5, 150, 105, 0.1);
+            color: var(--success-color);
+        }
+
+        .badge-warning {
+            background: rgba(217, 119, 6, 0.1);
+            color: var(--warning-color);
+        }
+
+        .badge-danger {
+            background: rgba(220, 38, 38, 0.1);
+            color: var(--danger-color);
+        }
+
+        /* Search */
+        .search-container {
+            position: sticky;
+            top: 0;
+            background: white;
+            padding: 1rem 1.5rem;
+            border-bottom: 1px solid var(--border-color);
+            z-index: 10;
+        }
+
+        .search-box {
+            position: relative;
+        }
+
+        .search-input {
+            width: 100%;
+            padding: 0.75rem 1rem 0.75rem 2.5rem;
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            font-size: 0.875rem;
+            transition: all 0.2s ease;
+        }
+
+        .search-input:focus {
+            outline: none;
+            border-color: var(--primary-color);
+            box-shadow: 0 0 0 3px rgba(37, 99, 235, 0.1);
+        }
+
+        .search-icon {
+            position: absolute;
+            left: 0.75rem;
+            top: 50%;
+            transform: translateY(-50%);
+            color: var(--text-secondary);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .sidebar {
+                transform: translateX(-100%);
+                transition: transform 0.3s ease;
+            }
+
+            .sidebar.open {
+                transform: translateX(0);
+            }
+
+            .main-content {
+                margin-left: 0;
+            }
+
+            .content-body {
+                padding: 1rem;
+            }
+
+            .mobile-menu-btn {
+                display: block;
+                position: fixed;
+                top: 1rem;
+                left: 1rem;
+                z-index: 1001;
+                background: var(--primary-color);
+                color: white;
+                border: none;
+                padding: 0.75rem;
+                border-radius: 8px;
+                cursor: pointer;
+            }
+
+            .feature-grid {
+                grid-template-columns: 1fr;
+            }
+        }
+
+        .mobile-menu-btn {
+            display: none;
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .section {
+            animation: fadeInUp 0.6s ease;
+            display: none;
+        }
+
+        .section.active {
+            display: block;
+        }
+
+        /* Scroll Progress */
+        .scroll-progress {
+            position: fixed;
+            top: 0;
+            left: var(--sidebar-width);
+            right: 0;
+            height: 3px;
+            background: var(--border-color);
+            z-index: 1001;
+        }
+
+        .scroll-progress-bar {
+            height: 100%;
+            background: linear-gradient(90deg, var(--primary-color), var(--accent-color));
+            width: 0%;
+            transition: width 0.1s ease;
+        }
+
+        /* FAQ Accordion */
+        .faq-item {
+            border: 1px solid var(--border-color);
+            border-radius: 8px;
+            margin-bottom: 0.5rem;
+            overflow: hidden;
+        }
+
+        .faq-question {
+            padding: 1rem 1.5rem;
+            background: var(--light-color);
+            cursor: pointer;
+            display: flex;
+            justify-content: between;
+            align-items: center;
+            font-weight: 600;
+            transition: background 0.2s ease;
+        }
+
+        .faq-question:hover {
+            background: #e2e8f0;
+        }
+
+        .faq-question::after {
+            content: '+';
+            font-size: 1.25rem;
+            margin-left: auto;
+            transition: transform 0.2s ease;
+        }
+
+        .faq-question.active::after {
+            transform: rotate(45deg);
+        }
+
+        .faq-answer {
+            padding: 0 1.5rem;
+            max-height: 0;
+            overflow: hidden;
+            transition: all 0.3s ease;
+        }
+
+        .faq-answer.active {
+            padding: 1rem 1.5rem;
+            max-height: 500px;
+        }
+
+        /* Back to Top */
+        .back-to-top {
+            position: fixed;
+            bottom: 2rem;
+            right: 2rem;
+            background: var(--primary-color);
+            color: white;
+            border: none;
+            width: 3rem;
+            height: 3rem;
+            border-radius: 50%;
+            cursor: pointer;
+            opacity: 0;
+            transform: translateY(20px);
+            transition: all 0.3s ease;
+            z-index: 1000;
+        }
+
+        .back-to-top.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        .back-to-top:hover {
+            background: var(--accent-color);
+            transform: translateY(-2px);
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <!-- Mobile Menu Button -->
+        <button class="mobile-menu-btn" onclick="toggleMobileMenu()">
+            <i class="fas fa-bars"></i>
+        </button>
+
+        <!-- Scroll Progress -->
+        <div class="scroll-progress">
+            <div class="scroll-progress-bar"></div>
+        </div>
+
+        <!-- Sidebar Navigation -->
+        <aside class="sidebar" id="sidebar">
+            <div class="sidebar-header">
+                <div class="logo">
+                    <i class="fas fa-shield-alt"></i>
+                    <div>
+                        <div>Safe Ship Pro</div>
+                        <div class="version">Documentation v1.0.0</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="search-container">
+                <div class="search-box">
+                    <i class="fas fa-search search-icon"></i>
+                    <input type="text" class="search-input" placeholder="Search documentation..." id="searchInput">
+                </div>
+            </div>
+
+            <nav class="nav-menu">
+                <div class="nav-section">
+                    <div class="nav-section-title">Getting Started</div>
+                    <a href="#overview" class="nav-item active" onclick="showSection('overview')">
+                        <i class="fas fa-home"></i>Overview
+                    </a>
+                    <a href="#installation" class="nav-item" onclick="showSection('installation')">
+                        <i class="fas fa-download"></i>Installation
+                    </a>
+                    <a href="#configuration" class="nav-item" onclick="showSection('configuration')">
+                        <i class="fas fa-cog"></i>Configuration
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Features</div>
+                    <a href="#features" class="nav-item" onclick="showSection('features')">
+                        <i class="fas fa-star"></i>Features
+                    </a>
+                    <a href="#protection" class="nav-item" onclick="showSection('protection')">
+                        <i class="fas fa-shield-alt"></i>Shipping Protection
+                    </a>
+                    <a href="#claims" class="nav-item" onclick="showSection('claims')">
+                        <i class="fas fa-file-alt"></i>Claims Management
+                    </a>
+                    <a href="#analytics" class="nav-item" onclick="showSection('analytics')">
+                        <i class="fas fa-chart-bar"></i>Analytics
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">User Guides</div>
+                    <a href="#user-guide" class="nav-item" onclick="showSection('user-guide')">
+                        <i class="fas fa-user"></i>User Guide
+                    </a>
+                    <a href="#admin-guide" class="nav-item" onclick="showSection('admin-guide')">
+                        <i class="fas fa-user-shield"></i>Admin Guide
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Development</div>
+                    <a href="#developer-guide" class="nav-item" onclick="showSection('developer-guide')">
+                        <i class="fas fa-code"></i>Developer Guide
+                    </a>
+                    <a href="#api-reference" class="nav-item" onclick="showSection('api-reference')">
+                        <i class="fas fa-plug"></i>API Reference
+                    </a>
+                    <a href="#hooks" class="nav-item" onclick="showSection('hooks')">
+                        <i class="fas fa-link"></i>Hooks & Filters
+                    </a>
+                </div>
+
+                <div class="nav-section">
+                    <div class="nav-section-title">Support</div>
+                    <a href="#troubleshooting" class="nav-item" onclick="showSection('troubleshooting')">
+                        <i class="fas fa-wrench"></i>Troubleshooting
+                    </a>
+                    <a href="#faq" class="nav-item" onclick="showSection('faq')">
+                        <i class="fas fa-question-circle"></i>FAQ
+                    </a>
+                </div>
+            </nav>
+        </aside>
+
+        <!-- Main Content -->
+        <main class="main-content">
+            <header class="content-header">
+                <div class="breadcrumb">
+                    <i class="fas fa-home"></i>
+                    <span>Documentation</span>
+                    <i class="fas fa-chevron-right"></i>
+                    <span id="currentSection">Overview</span>
+                </div>
+                <h1 id="pageTitle">Safe Ship Pro Documentation</h1>
+            </header>
+
+            <div class="content-body">
+                <!-- Overview Section -->
+                <section id="overview" class="section active">
+                    <div class="alert alert-info">
+                        <div class="alert-title">
+                            <i class="fas fa-info-circle"></i>
+                            Welcome to Safe Ship Pro
+                        </div>
+                        <p>This comprehensive documentation will guide you through every aspect of the Safe Ship Pro plugin, from basic setup to advanced customization.</p>
+                    </div>
+
+                    <h2>What is Safe Ship Pro?</h2>
+                    <p>Safe Ship Pro is a comprehensive WooCommerce plugin that adds shipping protection options to your online store. It allows customers to purchase shipping insurance to protect their orders against loss, damage, or theft during transit, while providing store owners with a complete claims management system.</p>
+
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shield-alt"></i>
+                            </div>
+                            <div class="feature-title">Shipping Protection</div>
+                            <div class="feature-description">Add protection options at checkout with flexible fee calculation methods.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="feature-title">Claims Management</div>
+                            <div class="feature-description">Complete system for handling shipping protection claims with file uploads.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-envelope"></i>
+                            </div>
+                            <div class="feature-title">Email Notifications</div>
+                            <div class="feature-description">Automated notifications for customers and admins throughout the process.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-chart-line"></i>
+                            </div>
+                            <div class="feature-title">Analytics Dashboard</div>
+                            <div class="feature-description">Track protection rates, revenue, and claims with detailed reports.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-database"></i>
+                            </div>
+                            <div class="feature-title">HPOS Compatible</div>
+                            <div class="feature-description">Full support for WooCommerce High-Performance Order Storage.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-key"></i>
+                            </div>
+                            <div class="feature-title">License Management</div>
+                            <div class="feature-description">Built-in license system with automatic updates and support.</div>
+                        </div>
+                    </div>
+
+                    <h3>System Requirements</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Component</th>
+                                    <th>Minimum Version</th>
+                                    <th>Recommended</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>WordPress</td>
+                                    <td>5.0</td>
+                                    <td>6.0+</td>
+                                </tr>
+                                <tr>
+                                    <td>WooCommerce</td>
+                                    <td>3.0</td>
+                                    <td>8.0+</td>
+                                </tr>
+                                <tr>
+                                    <td>PHP</td>
+                                    <td>7.4</td>
+                                    <td>8.1+</td>
+                                </tr>
+                                <tr>
+                                    <td>MySQL</td>
+                                    <td>5.6</td>
+                                    <td>8.0+</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <div class="alert alert-success">
+                        <div class="alert-title">
+                            <i class="fas fa-check-circle"></i>
+                            Ready to Get Started?
+                        </div>
+                        <p>Continue to the <strong>Installation</strong> section to begin setting up Safe Ship Pro on your WooCommerce store.</p>
+                    </div>
+                </section>
+
+                <!-- Installation Section -->
+                <section id="installation" class="section">
+                    <h2>Installation Guide</h2>
+                    
+                    <h3>Standard Installation</h3>
+                    <ol>
+                        <li>Download the plugin ZIP file from your account</li>
+                        <li>Navigate to <strong>WordPress Admin → Plugins → Add New</strong></li>
+                        <li>Click <strong>"Upload Plugin"</strong> and select the ZIP file</li>
+                        <li>Click <strong>"Install Now"</strong> and then <strong>"Activate"</strong></li>
+                        <li>Go to <strong>Safe Ship Pro → License</strong> to enter your license key</li>
+                    </ol>
+
+                    <div class="alert alert-warning">
+                        <div class="alert-title">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            WooCommerce Required
+                        </div>
+                        <p>Safe Ship Pro requires WooCommerce to be installed and active. The plugin will show an error notice if WooCommerce is not detected.</p>
+                    </div>
+
+                    <h3>Manual Installation</h3>
+                    <p>If you prefer to install manually via FTP:</p>
+                    <ol>
+                        <li>Extract the ZIP file to <code>/wp-content/plugins/safe-ship-pro/</code></li>
+                        <li>Activate the plugin through the WordPress Plugins menu</li>
+                        <li>Configure your settings in the admin panel</li>
+                    </ol>
+
+                    <h3>Post-Installation Setup</h3>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Quick Setup Checklist</div>
+                        </div>
+                        <ol>
+                            <li><strong>License Activation</strong> - Enter your license key in Safe Ship Pro → License</li>
+                            <li><strong>Basic Configuration</strong> - Set up protection fees in Safe Ship Pro → Settings</li>
+                            <li><strong>Test Checkout</strong> - Verify the protection option appears during checkout</li>
+                            <li><strong>Email Setup</strong> - Test email notifications are working</li>
+                            <li><strong>Claims Testing</strong> - Create a test claim to verify the system</li>
+                        </ol>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <div class="alert-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Next Steps
+                        </div>
+                        <p>Once installed, proceed to the <strong>Configuration</strong> section to set up your protection options and fees.</p>
+                    </div>
+                </section>
+
+                <!-- Configuration Section -->
+                <section id="configuration" class="section">
+                    <h2>Configuration</h2>
+
+                    <h3>General Settings</h3>
+                    <p>Navigate to <strong>Safe Ship Pro → Settings → General Settings</strong> to configure basic options:</p>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Protection Settings</div>
+                        </div>
+                        <div class="table-container">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th>Setting</th>
+                                        <th>Description</th>
+                                        <th>Default</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    <tr>
+                                        <td>Enable Protection</td>
+                                        <td>Toggle protection option on/off globally</td>
+                                        <td><span class="badge badge-success">Enabled</span></td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fee Type</td>
+                                        <td>Percentage of cart value or flat fee</td>
+                                        <td>Percentage</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Fee Amount</td>
+                                        <td>Percentage (1.5% = 1.5) or flat amount</td>
+                                        <td>1.5</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Minimum Fee</td>
+                                        <td>Minimum fee for percentage calculations</td>
+                                        <td>$0.99</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Maximum Fee</td>
+                                        <td>Maximum fee for percentage calculations</td>
+                                        <td>$9.99</td>
+                                    </tr>
+                                    <tr>
+                                        <td>Default Checked</td>
+                                        <td>Pre-select protection at checkout</td>
+                                        <td><span class="badge badge-danger">Disabled</span></td>
+                                    </tr>
+                                </tbody>
+                            </table>
+                        </div>
+                    </div>
+
+                    <h4>Display Customization</h4>
+                    <pre><code class="language-php">// Example: Custom protection label
+Protection Label: "Package Insurance"
+Description: "Protect your order against shipping issues"
+
+// Logo and branding
+Protection Logo: Upload company logo
+Provider Name: "Your Insurance Provider"
+Provider Link: "https://provider.com"</code></pre>
+
+                    <h3>Claims Settings</h3>
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Claims Configuration</div>
+                        </div>
+                        <ul>
+                            <li><strong>Enable Claims System</strong> - Allow customers to file claims</li>
+                            <li><strong>Email Notifications</strong> - Send automated emails for claims</li>
+                            <li><strong>Claim Types</strong> - Define available claim categories</li>
+                            <li><strong>File Upload Support</strong> - Allow evidence attachments</li>
+                        </ul>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <div class="alert-title">
+                            <i class="fas fa-info-circle"></i>
+                            Configuration Tips
+                        </div>
+                        <p>Start with conservative settings and adjust based on your store's needs. Monitor protection adoption rates and claims frequency to optimize your configuration.</p>
+                    </div>
+                </section>
+
+                <!-- Features Section -->
+                <section id="features" class="section">
+                    <h2>Plugin Features</h2>
+
+                    <h3>Core Features Overview</h3>
+
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-shopping-cart"></i>
+                            </div>
+                            <div class="feature-title">Checkout Integration</div>
+                            <div class="feature-description">Seamless integration with WooCommerce checkout process with modern toggle interface.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-calculator"></i>
+                            </div>
+                            <div class="feature-title">Dynamic Fee Calculation</div>
+                            <div class="feature-description">Flexible percentage or flat fee calculation with min/max constraints.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-user-circle"></i>
+                            </div>
+                            <div class="feature-title">Customer Portal</div>
+                            <div class="feature-description">Dedicated claims section in customer account with full claim management.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="feature-title">Admin Dashboard</div>
+                            <div class="feature-description">Complete admin interface for managing claims, orders, and analytics.</div>
+                        </div>
+                    </div>
+
+                    <h3>Advanced Features</h3>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Email Notification System</div>
+                        </div>
+                        <ul>
+                            <li><strong>Protection Confirmation</strong> - Sent when customer adds protection</li>
+                            <li><strong>Claim Submitted</strong> - Confirmation for customer, notification for admin</li>
+                            <li><strong>Status Updates</strong> - Automated emails when claim status changes</li>
+                            <li><strong>Customizable Templates</strong> - Override email templates in your theme</li>
+                        </ul>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Analytics & Reporting</div>
+                        </div>
+                        <ul>
+                            <li><strong>Protection Metrics</strong> - Adoption rates, revenue tracking</li>
+                            <li><strong>Claims Analytics</strong> - Approval rates, type distribution</li>
+                            <li><strong>Visual Charts</strong> - Interactive charts with Chart.js</li>
+                            <li><strong>Export Capabilities</strong> - Data export for external analysis</li>
+                        </ul>
+                    </div>
+
+                    <h3>Technical Features</h3>
+
+                    <div class="alert alert-success">
+                        <div class="alert-title">
+                            <i class="fas fa-check-circle"></i>
+                            HPOS Compatibility
+                        </div>
+                        <p>Full support for WooCommerce High-Performance Order Storage (HPOS) ensuring future compatibility and optimal performance.</p>
+                    </div>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Feature</th>
+                                    <th>Status</th>
+                                    <th>Description</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>HPOS Support</td>
+                                    <td><span class="badge badge-success">✓ Full</span></td>
+                                    <td>Complete WooCommerce HPOS compatibility</td>
+                                </tr>
+                                <tr>
+                                    <td>REST API</td>
+                                    <td><span class="badge badge-success">✓ Available</span></td>
+                                    <td>RESTful endpoints for external integrations</td>
+                                </tr>
+                                <tr>
+                                    <td>Multisite</td>
+                                    <td><span class="badge badge-warning">Partial</span></td>
+                                    <td>Network activation supported</td>
+                                </tr>
+                                <tr>
+                                    <td>Translations</td>
+                                    <td><span class="badge badge-primary">Ready</span></td>
+                                    <td>Translation-ready with .pot file</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Protection Section -->
+                <section id="protection" class="section">
+                    <h2>Shipping Protection</h2>
+
+                    <h3>How It Works</h3>
+                    <p>The shipping protection system integrates seamlessly into your WooCommerce checkout process:</p>
+
+                    <ol>
+                        <li><strong>Customer adds products</strong> to cart</li>
+                        <li><strong>Protection option appears</strong> at checkout</li>
+                        <li><strong>Fee is calculated</strong> based on your settings</li>
+                        <li><strong>Customer toggles protection</strong> on or off</li>
+                        <li><strong>Fee is added to order</strong> if selected</li>
+                        <li><strong>Order is marked</strong> as protected</li>
+                    </ol>
+
+                    <h3>Fee Calculation Methods</h3>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Percentage-Based Calculation</div>
+                        </div>
+                        <pre><code class="language-javascript">// Example calculation
+cartTotal = $150.00
+percentage = 1.5% (0.015)
+calculatedFee = $150.00 * 0.015 = $2.25
+
+// Apply min/max constraints
+minFee = $0.99
+maxFee = $9.99
+finalFee = Math.max(minFee, Math.min(calculatedFee, maxFee))
+// Result: $2.25 (within range)</code></pre>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Flat Fee Calculation</div>
+                        </div>
+                        <pre><code class="language-javascript">// Simple flat fee
+cartTotal = $150.00
+flatFee = $3.99
+finalFee = $3.99
+// Result: $3.99 (regardless of cart value)</code></pre>
+                    </div>
+
+                    <h3>Product Eligibility</h3>
+                    <p>Control which products are eligible for shipping protection:</p>
+
+                    <ul>
+                        <li><strong>Global Settings</strong> - Enable/disable protection site-wide</li>
+                        <li><strong>Category Exclusions</strong> - Exclude entire product categories</li>
+                        <li><strong>Individual Products</strong> - Override settings per product</li>
+                        <li><strong>Virtual Products</strong> - Automatically excluded</li>
+                    </ul>
+
+                    <div class="alert alert-info">
+                        <div class="alert-title">
+                            <i class="fas fa-lightbulb"></i>
+                            Best Practices
+                        </div>
+                        <ul>
+                            <li>Start with conservative percentage rates (1-2%)</li>
+                            <li>Set reasonable min/max fee limits</li>
+                            <li>Exclude digital/virtual products</li>
+                            <li>Test thoroughly before going live</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Claims Section -->
+                <section id="claims" class="section">
+                    <h2>Claims Management</h2>
+
+                    <h3>Claims Workflow</h3>
+                    <p>The claims system provides a complete workflow from submission to resolution:</p>
+
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-file-plus"></i>
+                            </div>
+                            <div class="feature-title">1. Submission</div>
+                            <div class="feature-description">Customer files claim through My Account with supporting evidence.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-search"></i>
+                            </div>
+                            <div class="feature-title">2. Review</div>
+                            <div class="feature-description">Admin reviews claim details and supporting documentation.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-cogs"></i>
+                            </div>
+                            <div class="feature-title">3. Processing</div>
+                            <div class="feature-description">Claim moves to processing status while being investigated.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-check-circle"></i>
+                            </div>
+                            <div class="feature-title">4. Resolution</div>
+                            <div class="feature-description">Claim is approved/denied and marked as completed.</div>
+                        </div>
+                    </div>
+
+                    <h3>Claim Statuses</h3>
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Status</th>
+                                    <th>Description</th>
+                                    <th>Customer Visible</th>
+                                    <th>Actions Available</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td><span class="badge badge-warning">Pending</span></td>
+                                    <td>Newly submitted claim awaiting review</td>
+                                    <td>Yes</td>
+                                    <td>Admin review, move to processing</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-primary">Processing</span></td>
+                                    <td>Claim under active investigation</td>
+                                    <td>Yes</td>
+                                    <td>Admin notes, approve/deny</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-success">Approved</span></td>
+                                    <td>Claim approved for resolution</td>
+                                    <td>Yes</td>
+                                    <td>Mark as completed</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-danger">Denied</span></td>
+                                    <td>Claim rejected with reason</td>
+                                    <td>Yes</td>
+                                    <td>Close claim</td>
+                                </tr>
+                                <tr>
+                                    <td><span class="badge badge-success">Completed</span></td>
+                                    <td>Claim fully resolved</td>
+                                    <td>Yes</td>
+                                    <td>Archive claim</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+
+                    <h3>File Upload Support</h3>
+                    <p>Customers can upload supporting evidence with their claims:</p>
+
+                    <ul>
+                        <li><strong>Supported Formats</strong> - JPG, PNG, PDF files</li>
+                        <li><strong>File Size Limits</strong> - 5MB per file maximum</li>
+                        <li><strong>Multiple Files</strong> - Upload multiple evidence files</li>
+                        <li><strong>Secure Storage</strong> - Files stored in protected directory</li>
+                    </ul>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Claim Types</div>
+                        </div>
+                        <p>Configure available claim types in the admin settings:</p>
+                        <ul>
+                            <li><strong>Damaged Package</strong> - Items arrived damaged</li>
+                            <li><strong>Lost Package</strong> - Package never arrived</li>
+                            <li><strong>Stolen Package</strong> - Package stolen after delivery</li>
+                            <li><strong>Delayed Delivery</strong> - Significant shipping delays</li>
+                            <li><strong>Other Issue</strong> - Custom claim types</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Analytics Section -->
+                <section id="analytics" class="section">
+                    <h2>Analytics Dashboard</h2>
+
+                    <h3>Key Metrics</h3>
+                    <p>The analytics dashboard provides comprehensive insights into your shipping protection performance:</p>
+
+                    <div class="feature-grid">
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-percentage"></i>
+                            </div>
+                            <div class="feature-title">Protection Rate</div>
+                            <div class="feature-description">Percentage of orders that include shipping protection.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-dollar-sign"></i>
+                            </div>
+                            <div class="feature-title">Protection Revenue</div>
+                            <div class="feature-description">Total revenue generated from protection fees.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-file-alt"></i>
+                            </div>
+                            <div class="feature-title">Claims Rate</div>
+                            <div class="feature-description">Ratio of claims filed vs protected orders.</div>
+                        </div>
+
+                        <div class="feature-card">
+                            <div class="feature-icon">
+                                <i class="fas fa-thumbs-up"></i>
+                            </div>
+                            <div class="feature-title">Approval Rate</div>
+                            <div class="feature-description">Percentage of claims that are approved.</div>
+                        </div>
+                    </div>
+
+                    <h3>Visual Charts</h3>
+                    <p>Interactive charts powered by Chart.js provide visual insights:</p>
+
+                    <ul>
+                        <li><strong>Daily Protection Data</strong> - Line chart showing protection adoption over time</li>
+                        <li><strong>Claims by Type</strong> - Pie chart breakdown of claim categories</li>
+                        <li><strong>Claims by Status</strong> - Doughnut chart of claim status distribution</li>
+                        <li><strong>Revenue Trends</strong> - Bar chart showing protection revenue trends</li>
+                    </ul>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Date Range Filtering</div>
+                        </div>
+                        <p>Filter analytics data by custom date ranges:</p>
+                        <ul>
+                            <li>Default: Last 30 days</li>
+                            <li>Custom: Any date range selection</li>
+                            <li>Quick filters: 7 days, 30 days, 90 days, 1 year</li>
+                            <li>Export: Download filtered data as CSV</li>
+                        </ul>
+                    </div>
+
+                    <h3>Dashboard Widget</h3>
+                    <p>Key metrics are also available as a WordPress dashboard widget for quick access:</p>
+
+                    <pre><code class="language-php">// Dashboard widget shows:
+- Protected orders count
+- Total protection fees collected
+- Total claims filed
+- Pending claims requiring attention</code></pre>
+                </section>
+
+                <!-- User Guide Section -->
+                <section id="user-guide" class="section">
+                    <h2>User Guide</h2>
+
+                    <h3>For Customers</h3>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Adding Protection at Checkout</div>
+                        </div>
+                        <ol>
+                            <li>Add products to cart and proceed to checkout</li>
+                            <li>Look for the "Shipping Protection" section</li>
+                            <li>Toggle the protection switch to enable</li>
+                            <li>Review the protection fee added to your total</li>
+                            <li>Complete your order as normal</li>
+                        </ol>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Filing a Claim</div>
+                        </div>
+                        <ol>
+                            <li>Log into your account on the store website</li>
+                            <li>Navigate to "Shipping Claims" in your account menu</li>
+                            <li>Click "File a New Claim" or select from protected orders</li>
+                            <li>Choose the appropriate claim type</li>
+                            <li>Provide detailed description of the issue</li>
+                            <li>Upload supporting photos or documents (optional)</li>
+                            <li>Submit the claim and wait for review</li>
+                        </ol>
+                    </div>
+
+                    <h4>Tracking Your Claims</h4>
+                    <ul>
+                        <li><strong>Status Updates</strong> - Receive email notifications when status changes</li>
+                        <li><strong>Claim History</strong> - View all claims in your account</li>
+                        <li><strong>Details View</strong> - See complete claim information and status</li>
+                        <li><strong>Response Times</strong> - Typical review time is 1-3 business days</li>
+                    </ul>
+
+                    <div class="alert alert-info">
+                        <div class="alert-title">
+                            <i class="fas fa-info-circle"></i>
+                            Filing Tips
+                        </div>
+                        <ul>
+                            <li>Provide clear, detailed descriptions</li>
+                            <li>Upload photos showing damage or delivery issues</li>
+                            <li>File claims promptly after discovering issues</li>
+                            <li>Keep delivery confirmation and tracking information</li>
+                        </ul>
+                    </div>
+                </section>
+
+                <!-- Admin Guide Section -->
+                <section id="admin-guide" class="section">
+                    <h2>Admin Guide</h2>
+
+                    <h3>Managing Protected Orders</h3>
+                    <p>Protected orders are easily identifiable in your WooCommerce admin:</p>
+
+                    <ul>
+                        <li><strong>Order List</strong> - Protected orders show protection status</li>
+                        <li><strong>Order Details</strong> - Protection information in order meta box</li>
+                        <li><strong>Protection Amount</strong> - Fee amount clearly displayed</li>
+                        <li><strong>Quick Actions</strong> - Create claims directly from order page</li>
+                    </ul>
+
+                    <h3>Processing Claims</h3>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Claim Review Process</div>
+                        </div>
+                        <ol>
+                            <li><strong>New Claim Notification</strong> - Receive email when claim is filed</li>
+                            <li><strong>Review Details</strong> - Examine claim information and attachments</li>
+                            <li><strong>Update Status</strong> - Move from Pending → Processing → Approved/Denied</li>
+                            <li><strong>Add Notes</strong> - Internal notes for team communication</li>
+                            <li><strong>Customer Communication</strong> - Automated emails keep customer informed</li>
+                        </ol>
+                    </div>
+
+                    <h4>Bulk Actions</h4>
+                    <p>Efficiently manage multiple claims:</p>
+                    <ul>
+                        <li>Filter claims by status, date, or type</li>
+                        <li>Bulk status updates for multiple claims</li>
+                        <li>Export claim data for external analysis</li>
+                        <li>Search claims by customer or order details</li>
+                    </ul>
+
+                    <h3>Analytics Review</h3>
+                    <p>Regular analytics review helps optimize your protection offering:</p>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Metric</th>
+                                    <th>Good Range</th>
+                                    <th>Action if Outside Range</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Protection Rate</td>
+                                    <td>15-30%</td>
+                                    <td>Adjust fees or marketing</td>
+                                </tr>
+                                <tr>
+                                    <td>Claims Rate</td>
+                                    <td>1-5%</td>
+                                    <td>Review shipping partners</td>
+                                </tr>
+                                <tr>
+                                    <td>Approval Rate</td>
+                                    <td>70-90%</td>
+                                    <td>Review approval criteria</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- Developer Guide Section -->
+                <section id="developer-guide" class="section">
+                    <h2>Developer Guide</h2>
+
+                    <h3>Plugin Architecture</h3>
+                    <p>Safe Ship Pro follows WordPress coding standards with a modular architecture:</p>
+
+                    <pre><code class="language-php">safe-ship-pro/
+├── admin/                  # Admin-specific functionality
+│   ├── css/               # Admin stylesheets
+│   ├── js/                # Admin JavaScript
+│   ├── partials/          # Admin template files
+│   └── class-safe-ship-pro-admin.php
+├── includes/              # Core plugin classes
+│   ├── class-safe-ship-pro.php
+│   ├── class-safe-ship-pro-protection.php
+│   ├── class-safe-ship-pro-claims.php
+│   ├── class-safe-ship-pro-analytics.php
+│   └── class-safe-ship-pro-emails.php
+├── public/                # Public-facing functionality
+│   ├── css/               # Frontend stylesheets
+│   ├── js/                # Frontend JavaScript
+│   ├── partials/          # Frontend templates
+│   └── class-safe-ship-pro-public.php
+└── languages/             # Translation files</code></pre>
+
+                    <h3>Core Classes</h3>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Main Classes Overview</div>
+                        </div>
+                        <ul>
+                            <li><strong>Safe_Ship_Pro</strong> - Main plugin class and orchestrator</li>
+                            <li><strong>Safe_Ship_Pro_Protection</strong> - Protection functionality and fee calculation</li>
+                            <li><strong>Safe_Ship_Pro_Claims</strong> - Claims management and workflow</li>
+                            <li><strong>Safe_Ship_Pro_Analytics</strong> - Analytics and reporting features</li>
+                            <li><strong>Safe_Ship_Pro_Emails</strong> - Email notification system</li>
+                            <li><strong>Safe_Ship_Pro_License</strong> - License management and updates</li>
+                        </ul>
+                    </div>
+
+                    <h3>Custom Development</h3>
+
+                    <h4>Fee Calculation Customization</h4>
+                    <pre><code class="language-php">/**
+ * Custom protection fee calculation
+ */
+function custom_protection_fee($fee, $cart_total) {
+    // Custom logic for fee calculation
+    if ($cart_total > 100) {
+        return $cart_total * 0.02; // 2% for orders over $100
+    } else if ($cart_total > 50) {
+        return $cart_total * 0.025; // 2.5% for orders $50-$100
+    }
+    return $fee; // Use default calculation
+}
+add_filter('safe_ship_pro_protection_fee', 'custom_protection_fee', 10, 2);</code></pre>
+
+                    <h4>Custom Email Templates</h4>
+                    <p>Override email templates by placing them in your theme:</p>
+
+                    <pre><code class="language-php">// Template location in your theme:
+your-theme/
+└── safe-ship-pro/
+    └── emails/
+        ├── protection-confirmation.php
+        ├── claim-notification.php
+        └── claim-status-update.php
+
+// Template hierarchy (checked in order):
+1. your-theme/safe-ship-pro/emails/template-name.php
+2. plugin/public/partials/emails/template-name.php</code></pre>
+
+                    <h3>Database Schema</h3>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Claims Table Structure</div>
+                        </div>
+                        <pre><code class="language-sql">CREATE TABLE wp_safe_ship_pro_claims (
+    id mediumint(9) NOT NULL AUTO_INCREMENT,
+    date_created datetime NOT NULL,
+    date_updated datetime NOT NULL,
+    user_id bigint(20) NOT NULL,
+    order_id bigint(20) NOT NULL,
+    claim_type varchar(50) NOT NULL,
+    claim_reason text NOT NULL,
+    claim_status varchar(20) DEFAULT 'pending',
+    admin_notes text,
+    attachments text,
+    PRIMARY KEY (id),
+    KEY user_id (user_id),
+    KEY order_id (order_id),
+    KEY claim_status (claim_status)
+);</code></pre>
+                    </div>
+
+                    <h4>Order Meta Fields</h4>
+                    <pre><code class="language-php">// Protection-related order meta
+_safe_ship_pro_protection_added  // 'yes' if protection added
+_safe_ship_pro_protection_amount // Protection fee amount
+
+// HPOS-compatible access
+$order = wc_get_order($order_id);
+$has_protection = $order->get_meta('_safe_ship_pro_protection_added', true) === 'yes';
+$protection_amount = $order->get_meta('_safe_ship_pro_protection_amount', true);</code></pre>
+                </section>
+
+                <!-- API Reference Section -->
+                <section id="api-reference" class="section">
+                    <h2>API Reference</h2>
+
+                    <h3>REST API Endpoints</h3>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Protection Statistics</div>
+                        </div>
+                        <pre><code class="language-http">GET /wp-json/safe-ship-pro/v1/stats
+
+Response:
+{
+    "protection_rate": 65.5,
+    "total_revenue": 1250.00,
+    "total_claims": 15,
+    "approval_rate": 85.7,
+    "date_range": {
+        "from": "2024-01-01",
+        "to": "2024-01-31"
+    }
+}</code></pre>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Claims Data</div>
+                        </div>
+                        <pre><code class="language-http">GET /wp-json/safe-ship-pro/v1/claims
+
+Parameters:
+- status: pending|processing|approved|denied|completed
+- limit: number of results (default: 20)
+- offset: pagination offset
+
+Response:
+{
+    "claims": [
+        {
+            "id": 123,
+            "order_id": 456,
+            "type": "damaged",
+            "status": "processing",
+            "date_created": "2024-01-15T10:30:00",
+            "customer": {
+                "name": "John Doe",
+                "email": "john@example.com"
+            }
+        }
+    ],
+    "total": 45,
+    "pages": 3
+}</code></pre>
+                    </div>
+
+                    <h3>AJAX Endpoints</h3>
+
+                    <h4>Submit Claim</h4>
+                    <pre><code class="language-javascript">// Submit new claim via AJAX
+jQuery.ajax({
+    url: ajaxurl,
+    type: 'POST',
+    data: {
+        action: 'safe_ship_pro_submit_claim',
+        order_id: 123,
+        claim_type: 'damaged',
+        claim_reason: 'Package arrived with damaged contents',
+        security: nonce
+    },
+    success: function(response) {
+        if (response.success) {
+            alert('Claim submitted successfully!');
+            location.reload();
+        } else {
+            alert('Error: ' + response.data.message);
+        }
+    }
+});</code></pre>
+
+                    <h4>Update Claim Status</h4>
+                    <pre><code class="language-javascript">// Admin: Update claim status
+jQuery.ajax({
+    url: ajaxurl,
+    type: 'POST',
+    data: {
+        action: 'safe_ship_pro_update_claim',
+        claim_id: 123,
+        status: 'approved',
+        admin_notes: 'Claim approved based on evidence provided',
+        security: nonce
+    },
+    success: function(response) {
+        // Handle response
+    }
+});</code></pre>
+
+                    <h3>Helper Functions</h3>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Utility Functions</div>
+                        </div>
+                        <pre><code class="language-php">/**
+ * Check if order has protection
+ */
+function order_has_protection($order_id) {
+    $order = wc_get_order($order_id);
+    return $order->get_meta('_safe_ship_pro_protection_added', true) === 'yes';
+}
+
+/**
+ * Get protection amount for order
+ */
+function get_protection_amount($order_id) {
+    $order = wc_get_order($order_id);
+    return floatval($order->get_meta('_safe_ship_pro_protection_amount', true));
+}
+
+/**
+ * Get claims for order
+ */
+function get_order_claims($order_id) {
+    global $wpdb;
+    $table_name = $wpdb->prefix . 'safe_ship_pro_claims';
+    
+    return $wpdb->get_results($wpdb->prepare(
+        "SELECT * FROM $table_name WHERE order_id = %d ORDER BY date_created DESC",
+        $order_id
+    ));
+}</code></pre>
+                    </div>
+                </section>
+
+                <!-- Hooks Section -->
+                <section id="hooks" class="section">
+                    <h2>Hooks & Filters</h2>
+
+                    <h3>Action Hooks</h3>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Protection Actions</div>
+                        </div>
+                        <pre><code class="language-php">/**
+ * Fired when protection is added to order
+ */
+do_action('safe_ship_pro_protection_added', $order_id, $protection_amount);
+
+/**
+ * Fired before protection fee calculation
+ */
+do_action('safe_ship_pro_before_fee_calculation', $cart_total);
+
+/**
+ * Fired after protection option is displayed
+ */
+do_action('safe_ship_pro_after_protection_display');</code></pre>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Claims Actions</div>
+                        </div>
+                        <pre><code class="language-php">/**
+ * Fired when new claim is submitted
+ */
+do_action('safe_ship_pro_claim_submitted', $claim_id, $order_id);
+
+/**
+ * Fired when claim status is updated
+ */
+do_action('safe_ship_pro_claim_updated', $claim_id, $order_id, $new_status);
+
+/**
+ * Fired when claim is approved
+ */
+do_action('safe_ship_pro_claim_approved', $claim_id, $order_id);
+
+/**
+ * Fired when claim is denied
+ */
+do_action('safe_ship_pro_claim_denied', $claim_id, $order_id, $reason);</code></pre>
+                    </div>
+
+                    <h3>Filter Hooks</h3>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Protection Filters</div>
+                        </div>
+                        <pre><code class="language-php">/**
+ * Modify protection fee calculation
+ */
+$fee = apply_filters('safe_ship_pro_protection_fee', $fee, $cart_total);
+
+/**
+ * Customize protection label
+ */
+$label = apply_filters('safe_ship_pro_protection_label', $label);
+
+/**
+ * Modify protection description
+ */
+$description = apply_filters('safe_ship_pro_protection_description', $description);
+
+/**
+ * Control product eligibility
+ */
+$eligible = apply_filters('safe_ship_pro_product_eligible', $eligible, $product_id);</code></pre>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Email Filters</div>
+                        </div>
+                        <pre><code class="language-php">/**
+ * Customize email subjects
+ */
+$subject = apply_filters('safe_ship_pro_email_subject', $subject, $type, $order_id);
+
+/**
+ * Modify email templates
+ */
+$template = apply_filters('safe_ship_pro_email_template', $template, $type);
+
+/**
+ * Filter email recipients
+ */
+$recipients = apply_filters('safe_ship_pro_email_recipients', $recipients, $type);</code></pre>
+                    </div>
+
+                    <h3>Custom Hook Examples</h3>
+
+                    <h4>Auto-approve Small Claims</h4>
+                    <pre><code class="language-php">/**
+ * Auto-approve claims under $25
+ */
+function auto_approve_small_claims($claim_id, $order_id) {
+    $order = wc_get_order($order_id);
+    $order_total = $order->get_total();
+    
+    if ($order_total < 25) {
+        // Auto-approve the claim
+        global $wpdb;
+        $table_name = $wpdb->prefix . 'safe_ship_pro_claims';
+        
+        $wpdb->update(
+            $table_name,
+            ['claim_status' => 'approved', 'admin_notes' => 'Auto-approved (order under $25)'],
+            ['id' => $claim_id],
+            ['%s', '%s'],
+            ['%d']
+        );
+        
+        // Trigger status update action
+        do_action('safe_ship_pro_claim_updated', $claim_id, $order_id, 'approved');
+    }
+}
+add_action('safe_ship_pro_claim_submitted', 'auto_approve_small_claims', 10, 2);</code></pre>
+
+                    <h4>Custom Protection Fee Logic</h4>
+                    <pre><code class="language-php">/**
+ * Tiered protection fee based on cart value
+ */
+function tiered_protection_fee($fee, $cart_total) {
+    if ($cart_total < 50) {
+        return 2.99; // Flat $2.99 for orders under $50
+    } else if ($cart_total < 100) {
+        return $cart_total * 0.02; // 2% for $50-$100
+    } else {
+        return min($cart_total * 0.015, 9.99); // 1.5% max $9.99 for $100+
+    }
+}
+add_filter('safe_ship_pro_protection_fee', 'tiered_protection_fee', 10, 2);</code></pre>
+                </section>
+
+                <!-- Troubleshooting Section -->
+                <section id="troubleshooting" class="section">
+                    <h2>Troubleshooting</h2>
+
+                    <h3>Common Issues</h3>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Protection Option Not Showing</div>
+                        </div>
+                        <p><strong>Symptoms:</strong> Protection option doesn't appear at checkout</p>
+                        <p><strong>Possible Causes & Solutions:</strong></p>
+                        <ol>
+                            <li><strong>Plugin not activated</strong> - Check Plugins page</li>
+                            <li><strong>WooCommerce not active</strong> - Install and activate WooCommerce</li>
+                            <li><strong>Protection disabled</strong> - Check Settings → General → Enable Protection</li>
+                            <li><strong>Products not eligible</strong> - Check category exclusions and product settings</li>
+                            <li><strong>Theme conflict</strong> - Switch to default theme to test</li>
+                        </ol>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Claims Page Not Working</div>
+                        </div>
+                        <p><strong>Symptoms:</strong> 404 error or blank page when accessing claims</p>
+                        <p><strong>Solutions:</strong></p>
+                        <ol>
+                            <li><strong>Flush permalinks</strong> - Go to Settings → Permalinks → Save Changes</li>
+                            <li><strong>Check endpoint registration</strong> - Deactivate/reactivate plugin</li>
+                            <li><strong>Verify claims enabled</strong> - Check Settings → Claims → Enable Claims</li>
+                            <li><strong>Theme compatibility</strong> - Ensure theme supports WooCommerce account pages</li>
+                        </ol>
+                    </div>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Email Notifications Not Sending</div>
+                        </div>
+                        <p><strong>Symptoms:</strong> Customers/admins not receiving emails</p>
+                        <p><strong>Troubleshooting Steps:</strong></p>
+                        <ol>
+                            <li><strong>Test WordPress mail</strong> - Use a mail testing plugin</li>
+                            <li><strong>Check notification settings</strong> - Verify emails are enabled in settings</li>
+                            <li><strong>Verify email addresses</strong> - Check admin email and customer addresses</li>
+                            <li><strong>Check spam folders</strong> - Emails might be filtered as spam</li>
+                            <li><strong>SMTP configuration</strong> - Consider using an SMTP plugin</li>
+                        </ol>
+                    </div>
+
+                    <h3>Debug Mode</h3>
+                    <p>Enable WordPress debug mode to troubleshoot issues:</p>
+
+                    <pre><code class="language-php">// Add to wp-config.php
+define('WP_DEBUG', true);
+define('WP_DEBUG_LOG', true);
+define('WP_DEBUG_DISPLAY', false);
+
+// Log file location
+/wp-content/debug.log</code></pre>
+
+                    <h3>Database Issues</h3>
+
+                    <div class="alert alert-warning">
+                        <div class="alert-title">
+                            <i class="fas fa-exclamation-triangle"></i>
+                            Database Table Missing
+                        </div>
+                        <p>If the claims table is missing, try these solutions:</p>
+                        <ol>
+                            <li>Deactivate and reactivate the plugin</li>
+                            <li>Check database user permissions (needs CREATE privilege)</li>
+                            <li>Verify file permissions on plugin directory</li>
+                            <li>Check error logs for SQL errors</li>
+                        </ol>
+                    </div>
+
+                    <h4>Manual Table Creation</h4>
+                    <p>If automatic table creation fails, create manually:</p>
+
+                    <pre><code class="language-sql">CREATE TABLE wp_safe_ship_pro_claims (
+    id mediumint(9) NOT NULL AUTO_INCREMENT,
+    date_created datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+    date_updated datetime DEFAULT '0000-00-00 00:00:00' NOT NULL,
+    user_id bigint(20) NOT NULL,
+    order_id bigint(20) NOT NULL,
+    claim_type varchar(50) NOT NULL,
+    claim_reason text NOT NULL,
+    claim_status varchar(20) NOT NULL DEFAULT 'pending',
+    admin_notes text,
+    attachments text,
+    PRIMARY KEY (id)
+);</code></pre>
+
+                    <h3>Performance Issues</h3>
+
+                    <div class="card">
+                        <div class="card-header">
+                            <div class="card-title">Optimization Tips</div>
+                        </div>
+                        <ul>
+                            <li><strong>Caching</strong> - Use object caching for analytics queries</li>
+                            <li><strong>Database Indexing</strong> - Add indexes on frequently queried columns</li>
+                            <li><strong>File Cleanup</strong> - Regularly clean up old claim attachments</li>
+                            <li><strong>Analytics Limits</strong> - Limit date ranges for large datasets</li>
+                        </ul>
+                    </div>
+
+                    <h3>Plugin Conflicts</h3>
+                    <p>Common plugin conflicts and solutions:</p>
+
+                    <div class="table-container">
+                        <table>
+                            <thead>
+                                <tr>
+                                    <th>Plugin Type</th>
+                                    <th>Potential Issue</th>
+                                    <th>Solution</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                <tr>
+                                    <td>Other Shipping Plugins</td>
+                                    <td>Checkout field conflicts</td>
+                                    <td>Adjust hook priorities</td>
+                                </tr>
+                                <tr>
+                                    <td>Checkout Customizers</td>
+                                    <td>Protection option not showing</td>
+                                    <td>Use different hook or filter</td>
+                                </tr>
+                                <tr>
+                                    <td>Email Customizers</td>
+                                    <td>Notification conflicts</td>
+                                    <td>Disable conflicting emails</td>
+                                </tr>
+                                <tr>
+                                    <td>Security Plugins</td>
+                                    <td>AJAX requests blocked</td>
+                                    <td>Whitelist AJAX actions</td>
+                                </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </section>
+
+                <!-- FAQ Section -->
+                <section id="faq" class="section">
+                    <h2>Frequently Asked Questions</h2>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            Does this work with all WooCommerce themes?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, Safe Ship Pro uses standard WooCommerce hooks and should work with any properly coded theme. The plugin integrates with the standard checkout process and My Account pages.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            Can I customize the protection option appearance?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, you can customize labels, descriptions, upload a logo, and set provider information. For advanced styling, you can override CSS classes or use custom templates in your theme.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            Is this compatible with WooCommerce subscriptions?
+                        </div>
+                        <div class="faq-answer">
+                            <p>The plugin works with subscription products, but protection applies per individual order, not per subscription renewal. Each renewal would need protection added separately.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            How are protection fees calculated?
+                        </div>
+                        <div class="faq-answer">
+                            <p>You can choose between percentage-based calculation (with min/max limits) or flat fee. Percentage fees are calculated as: cart total × percentage, then constrained by minimum and maximum fee limits.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            Can I exclude certain products from protection?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, you can exclude entire product categories in the settings, or set individual product protection settings in the product data tabs. Virtual and downloadable products are automatically excluded.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            What file types can customers upload with claims?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Customers can upload JPG, PNG, and PDF files up to 5MB each. Multiple files can be uploaded per claim to provide supporting evidence.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            Is the plugin GDPR compliant?
+                        </div>
+                        <div class="faq-answer">
+                            <p>The plugin stores necessary order and claim data for business purposes. Ensure your privacy policy covers this data usage and consider implementing data retention policies for claim files.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            Can I export claims data?
+                        </div>
+                        <div class="faq-answer">
+                            <p>Yes, claims data can be exported through the analytics section or by directly accessing the database. The plugin also provides REST API endpoints for external integrations.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            What happens if my license expires?
+                        </div>
+                        <div class="faq-answer">
+                            <p>The plugin continues to work normally, but you won't receive updates or support until the license is renewed. It's important to keep your license active for security updates.</p>
+                        </div>
+                    </div>
+
+                    <div class="faq-item">
+                        <div class="faq-question" onclick="toggleFaq(this)">
+                            Can I use one license on multiple sites?
+                        </div>
+                        <div class="faq-answer">
+                            <p>License terms depend on your purchase. Check your license agreement for multi-site usage rights. Most licenses are per-site, but multi-site licenses are available.</p>
+                        </div>
+                    </div>
+
+                    <div class="alert alert-info">
+                        <div class="alert-title">
+                            <i class="fas fa-question-circle"></i>
+                            Still Need Help?
+                        </div>
+                        <p>If you can't find the answer to your question here, please contact our support team with your license key for personalized assistance.</p>
+                    </div>
+                </section>
+            </div>
+        </main>
+    </div>
+
+    <!-- Back to Top Button -->
+    <button class="back-to-top" onclick="scrollToTop()">
+        <i class="fas fa-arrow-up"></i>
+    </button>
+
+    <!-- Scripts -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/components/prism-core.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/prism/1.29.0/plugins/autoloader/prism-autoloader.min.js"></script>
+    
+    <script>
+        // Navigation and section management
+        function showSection(sectionId) {
+            // Hide all sections
+            document.querySelectorAll('.section').forEach(section => {
+                section.classList.remove('active');
+            });
+            
+            // Show target section
+            document.getElementById(sectionId).classList.add('active');
+            
+            // Update navigation
+            document.querySelectorAll('.nav-item').forEach(item => {
+                item.classList.remove('active');
+            });
+            document.querySelector(`[onclick="showSection('${sectionId}')"]`).classList.add('active');
+            
+            // Update breadcrumb and title
+            const sectionTitle = document.querySelector(`[onclick="showSection('${sectionId}')"]`).textContent.trim();
+            document.getElementById('currentSection').textContent = sectionTitle;
+            document.getElementById('pageTitle').textContent = sectionTitle;
+            
+            // Scroll to top
+            window.scrollTo(0, 0);
+            
+            // Update URL hash
+            window.location.hash = sectionId;
+        }
+
+        // Mobile menu toggle
+        function toggleMobileMenu() {
+            document.getElementById('sidebar').classList.toggle('open');
+        }
+
+        // FAQ accordion
+        function toggleFaq(element) {
+            element.classList.toggle('active');
+            const answer = element.nextElementSibling;
+            answer.classList.toggle('active');
+        }
+
+        // Search functionality
+        document.getElementById('searchInput').addEventListener('input', function(e) {
+            const searchTerm = e.target.value.toLowerCase();
+            const navItems = document.querySelectorAll('.nav-item');
+            
+            navItems.forEach(item => {
+                const text = item.textContent.toLowerCase();
+                if (text.includes(searchTerm)) {
+                    item.style.display = 'block';
+                } else {
+                    item.style.display = searchTerm ? 'none' : 'block';
+                }
+            });
+        });
+
+        // Scroll progress bar
+        window.addEventListener('scroll', function() {
+            const winScroll = document.body.scrollTop || document.documentElement.scrollTop;
+            const height = document.documentElement.scrollHeight - document.documentElement.clientHeight;
+            const scrolled = (winScroll / height) * 100;
+            document.querySelector('.scroll-progress-bar').style.width = scrolled + '%';
+            
+            // Show/hide back to top button
+            const backToTop = document.querySelector('.back-to-top');
+            if (winScroll > 300) {
+                backToTop.classList.add('visible');
+            } else {
+                backToTop.classList.remove('visible');
+            }
+        });
+
+        // Back to top function
+        function scrollToTop() {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        }
+
+        // Initialize page
+        document.addEventListener('DOMContentLoaded', function() {
+            // Check for hash in URL
+            if (window.location.hash) {
+                const section = window.location.hash.substring(1);
+                if (document.getElementById(section)) {
+                    showSection(section);
+                }
+            }
+            
+            // Close mobile menu when clicking outside
+            document.addEventListener('click', function(e) {
+                const sidebar = document.getElementById('sidebar');
+                const menuBtn = document.querySelector('.mobile-menu-btn');
+                
+                if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                    sidebar.classList.remove('open');
+                }
+            });
+        });
+
+        // Handle browser back/forward
+        window.addEventListener('hashchange', function() {
+            if (window.location.hash) {
+                const section = window.location.hash.substring(1);
+                if (document.getElementById(section)) {
+                    showSection(section);
+                }
+            }
+        });
+    </script>
+</body>
+</html>

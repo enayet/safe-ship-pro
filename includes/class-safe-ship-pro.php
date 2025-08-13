@@ -54,7 +54,7 @@ class Safe_Ship_Pro {
         $this->set_locale();
         $this->define_admin_hooks();
         $this->define_public_hooks();
-        $this->define_license_hooks(); // Added license hooks
+        //$this->define_license_hooks(); // Added license hooks
     }
 
     /**
@@ -214,7 +214,7 @@ class Safe_Ship_Pro {
         $this->loader->add_action('safe_ship_pro_license_check', $license, 'check_license');
         
         // Add plugin update functionality
-        $this->loader->add_action('admin_init', $this, 'register_plugin_updater', 0);
+        //$this->loader->add_action('admin_init', $this, 'register_plugin_updater', 0);
     }   
     
     
